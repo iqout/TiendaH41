@@ -4,16 +4,39 @@ import java.util.ArrayList;
 public class Almacen
 {
     private List<Producto> listaProductos;
+    private ArchivoProductos a;
     
     public Almacen()
     {
-        this.listaProductos = new ArrayList<Producto>();
+        a = new ArchivoProductos(); 
+        this.listaProductos = a.leerArchivo();
+        
+        
+    }
+    
+    public List<Producto> getListaProductos()
+    {
+        return this.listaProductos;
+    }
+    
+    public int getSiguienteCodigo()
+    {
+        int size = this.listaProductos.size();
+        if (size > 0)
+        {
+            return this.listaProductos.get(size - 1).getCodigo() + 1;    
+        }
+        else
+        {
+            return 1;
+        }
         
     }
     
     public void agregarProducto(Producto p)
     {
         this.listaProductos.add(p);
+        a.guardarProducto(p.toCSV());
     }
     
     public int buscarIndiceProducto(int codigo)
