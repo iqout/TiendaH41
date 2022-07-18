@@ -9,16 +9,47 @@ public class Interaccion
     {
         a = new Almacen();
     }
+    
     public void presentarMenuPrincipal()
     {
         int opcion = 0;
         do
         {
-            String menu = "MENU PRINCIPAL \n" +
-                          "1. Ingrese Producto \n" +
+             String menu = "PROGRAMA DE TIENDA \n" +
+                          "1. Productos \n" +
+                          "2. ventas \n" +
+                          "0. Salir \n";
+             opcion = Integer.parseInt(JOptionPane.showInputDialog(null, menu, "Seleccione un opcion", JOptionPane.QUESTION_MESSAGE));
+             switch(opcion)
+             {
+                 case 1:
+                     this.presentarMenuProductos();
+                     break;
+                 case 2:
+                     this.generarVenta();
+                     break;
+                 case 0:
+                     JOptionPane.showMessageDialog(null, "Gracias", "Salir", JOptionPane.INFORMATION_MESSAGE);
+                     break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opcion incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                
+             }
+        }
+        while(opcion != 0);
+    }
+    
+    public void presentarMenuProductos()
+    {
+        int opcion = 0;
+        do
+        {
+            String menu = "MENU PRODUCTOS \n" +
+                          "1. Ingresar Producto \n" +
                           "2. Mostrar Productos \n" +
                           "3. Buscar Productos \n" +
-                          "0. Salir";
+                          "4. Surtir Productos \n" +
+                          "0. Volver al menu principal";
             opcion = Integer.parseInt(JOptionPane.showInputDialog(null, menu, "Seleccione un opcion", JOptionPane.QUESTION_MESSAGE));
             switch(opcion)
             {
@@ -31,8 +62,10 @@ public class Interaccion
                 case 3:
                     this.buscarProductos();
                     break;
+                case 4:
+                    this.surtirProducto();
+                    break;
                 case 0:
-                    JOptionPane.showMessageDialog(null, "Gracias", "Salir", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opcion incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
@@ -81,5 +114,26 @@ public class Interaccion
         
     }
     
+    public void surtirProducto()
+    {
+        this.buscarProductos();
+        int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
+        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad del producto a surtir", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
+        a.aumentarCantProducto(codigo, cantidad);
+    }
     
+    
+    public void generarVenta()
+    {
+        Venta v = new Venta();
+        this.buscarProductos();
+        int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo del producto", "Vender producto", JOptionPane.QUESTION_MESSAGE));
+        Producto p = a.buscarProducto(codigo);
+        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad del producto a surtir", "Vender producto", JOptionPane.QUESTION_MESSAGE));
+        boolean agregado = v.agregarACarrito(p, cantidad);
+        if (agregado)
+        {
+            JOptionPane.showInputDialog(null, "Prodcutor agregado al  carrito", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 }

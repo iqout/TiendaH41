@@ -29,7 +29,35 @@ public class ArchivoProductos
         }
         catch(Exception e)
         {
+        }
+    }
+    
+    public void guardarProductos(List<Producto> lista)
+    {
+        String datoCompleto = "";
+        for(int i = 0; i < lista.size(); i++)
+        {
+            if(i == 0) 
+            {
+                datoCompleto  = datoCompleto + lista.get(i).toCSV();
+            }
+            else
+            {
+                datoCompleto  = datoCompleto + "\n" + lista.get(i).toCSV();
+            }
             
+        }
+        try
+        {
+            FileWriter writer = new FileWriter(this.archivo, false);
+            PrintWriter cursor = new PrintWriter(writer);
+            cursor.println(datoCompleto);
+            cursor.flush();
+            cursor.close();
+            writer.close();
+        }
+        catch(Exception e)
+        {
         }
     }
     
