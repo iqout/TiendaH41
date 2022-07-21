@@ -118,22 +118,48 @@ public class Interaccion
     {
         this.buscarProductos();
         int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
-        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad del producto a surtir", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
+        Producto p = a.buscarProducto(codigo);
+        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad de "+p.getNombre()+ " " +p.getMarca() + "a surtir. Actual: "+p.getMarca(), "Surtir producto", JOptionPane.QUESTION_MESSAGE));
+        int nuevoPrecio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio  de " +p.getNombre()+ " " +p.getMarca() + "a surtir. Actual: " +p.getPrecio(), "Surtir producto", JOptionPane.QUESTION_MESSAGE));
         a.aumentarCantProducto(codigo, cantidad);
+        a.modificarPrecio(codigo, nuevoPrecio);
+        a.actualizarArchivo();
+        JOptionPane.showInputDialog(null, "Producto surtido exitosamente", "Producto surtido", JOptionPane.QUESTION_MESSAGE);
     }
     
     
     public void generarVenta()
     {
         Venta v = new Venta();
-        this.buscarProductos();
-        int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo del producto", "Vender producto", JOptionPane.QUESTION_MESSAGE));
-        Producto p = a.buscarProducto(codigo);
-        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad del producto a surtir", "Vender producto", JOptionPane.QUESTION_MESSAGE));
-        boolean agregado = v.agregarACarrito(p, cantidad);
-        if (agregado)
+        int opcion;
+        do
         {
-            JOptionPane.showInputDialog(null, "Prodcutor agregado al  carrito", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
+            this.buscarProductos();
+            int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo del producto asurtir", "Vender producto", JOptionPane.QUESTION_MESSAGE));
+            Producto p = a.buscarProducto(codigo);
+            int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad del producto a vender", "Vender producto", JOptionPane.QUESTION_MESSAGE));
+            boolean agregado = v.agregarACarrito(p, cantidad);
+            if (agregado)
+            {
+                JOptionPane.showInputDialog(null, "Prodcutor agregado al  carrito", "Producto agregado", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+               JOptionPane.showInputDialog(null, "Prodcutor agregado al  carrito", "Producto NO agregado", JOptionPane.WARNING_MESSAGE); 
+            }
+            opcion = JOptionPane.showConfirmDialog(null, "¿Desea continuar agregando productos?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
+        }
+        while(opcion == JOptionPane.YES_OPTION);
+        int total = v.calcularVenta();
+        opcion = JOptionPane.showConfirmDialog(null, "El total de la venta es: $"+total+"\n¿Desea pagar?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
+        if(opcion == JOptionPane.YES_OPTION)
+        {
+            v.finalizarVenta();
+            JOptionPane.showInputDialog(null, "Gracias por su compra", "Venta realizada", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else
+        {
+            JOptionPane.showInputDialog(null, "No se realizo la venta", "Venta no realizada", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
