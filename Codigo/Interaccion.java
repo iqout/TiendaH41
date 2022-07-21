@@ -76,7 +76,7 @@ public class Interaccion
     public void ingresaProducto()
     {
         String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE);
-        int codigo = a.getSiguienteCodigo();
+        //int codigo = a.getSiguienteCodigo();
         String marca = JOptionPane.showInputDialog(null, "Ingrese la marca del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE);
         String presentacion = JOptionPane.showInputDialog(null, " Ingrese la presentacion del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE);
         String [] tipos = {"Aseo", "Alimentos"};
@@ -84,7 +84,7 @@ public class Interaccion
         int precio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
         int cantidad = Integer. parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantida del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
         
-        Producto p = new Producto(nombre, codigo, precio, presentacion, cantidad, marca, tipos[tipo]);
+        Producto p = new Producto(nombre,precio, presentacion, cantidad, marca, tipos[tipo]);
         a.agregarProducto(p);
         JOptionPane.showMessageDialog(null, "Se ha añadido el producto al almacen", "Producto al almacen", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -123,7 +123,7 @@ public class Interaccion
         int nuevoPrecio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio  de " +p.getNombre()+ " " +p.getMarca() + "a surtir. Actual: " +p.getPrecio(), "Surtir producto", JOptionPane.QUESTION_MESSAGE));
         a.aumentarCantProducto(codigo, cantidad);
         a.modificarPrecio(codigo, nuevoPrecio);
-        a.actualizarArchivo();
+        //a.actualizarArchivo();
         JOptionPane.showInputDialog(null, "Producto surtido exitosamente", "Producto surtido", JOptionPane.QUESTION_MESSAGE);
     }
     

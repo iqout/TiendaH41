@@ -30,6 +30,16 @@ public class Producto
         this.marca = marca;
         this.tipo = tipo;
     }
+      public Producto(String nombre, int precio, String presentacion, int cantidad, String marca, String tipo)
+    {
+        this.nombre = nombre;
+        this.codigo = 0;
+        this.precio = precio;
+        this.presentacion = presentacion;
+        this.cantidad = cantidad;
+        this.marca = marca;
+        this.tipo = tipo;
+    }
     
     public void setPrecio(int precio)
     {

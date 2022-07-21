@@ -48,6 +48,6 @@ public class Venta
         {
             almacen.disminuirCantProducto(p.getCodigo(), p.getCantidad());
         }
-        almacen.actualizarArchivo();
+        //almacen.actualizarArchivo();
     }
 }
