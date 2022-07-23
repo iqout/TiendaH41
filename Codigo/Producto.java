@@ -30,7 +30,8 @@ public class Producto
         this.marca = marca;
         this.tipo = tipo;
     }
-      public Producto(String nombre, int precio, String presentacion, int cantidad, String marca, String tipo)
+    
+     public Producto(String nombre, int precio, String presentacion, int cantidad, String marca, String tipo) 
     {
         this.nombre = nombre;
         this.codigo = 0;
@@ -82,11 +83,11 @@ public class Producto
     
     public String toString()
     {
-        return "Producto: "+this.codigo+ " -" +this.nombre+ " - " + this.marca + " - "+ this.presentacion + " [" + this.tipo + "]" + "Cant:"+this.cantidad;
+        return "Codigo: "+this.codigo+ " - " +this.nombre+ " - " + this.marca + " - "+ this.presentacion + " [ " + this.tipo + " ] " + "Cant : "+this.cantidad;
     }
 
     public String toCSV()
     {
-        return this.codigo+":"+this.nombre+":"+this.marca+":"+this.presentacion+":"+this.tipo+":"+this.precio+":"+this.cantidad;
+        return this.codigo+";"+this.nombre+";"+this.marca+";"+this.presentacion+";"+this.tipo+";"+this.precio+";"+this.cantidad;
     }
 }

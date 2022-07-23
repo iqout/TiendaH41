@@ -20,7 +20,7 @@ public class Venta
     
     public boolean agregarACarrito(Producto p, int cant)
     {
-        if(cant < p.getCantidad())
+        if(cant > p.getCantidad())
         {
             return false;
         }

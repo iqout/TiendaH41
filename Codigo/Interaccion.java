@@ -15,7 +15,7 @@ public class Interaccion
         int opcion = 0;
         do
         {
-             String menu = "PROGRAMA DE TIENDA \n" +
+             String menu = "PROGRAMA DE MI TIENDA \n" +
                           "1. Productos \n" +
                           "2. ventas \n" +
                           "0. Salir \n";
@@ -49,12 +49,13 @@ public class Interaccion
                           "2. Mostrar Productos \n" +
                           "3. Buscar Productos \n" +
                           "4. Surtir Productos \n" +
+                          "5. Eliminar Productos \n" +
                           "0. Volver al menu principal";
             opcion = Integer.parseInt(JOptionPane.showInputDialog(null, menu, "Seleccione un opcion", JOptionPane.QUESTION_MESSAGE));
             switch(opcion)
             {
                 case 1:
-                    this.ingresaProducto();
+                    this.ingresarProducto();
                     break;
                 case 2:
                     this.mostarProductos();
@@ -65,6 +66,9 @@ public class Interaccion
                 case 4:
                     this.surtirProducto();
                     break;
+                case 5:
+                    this.eliminarProducto();
+                    break;
                 case 0:
                     break;
                 default:
@@ -73,10 +77,9 @@ public class Interaccion
         }
         while(opcion != 0);
     }
-    public void ingresaProducto()
+    public void ingresarProducto()
     {
         String nombre = JOptionPane.showInputDialog(null, "Ingrese nombre del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE);
-        //int codigo = a.getSiguienteCodigo();
         String marca = JOptionPane.showInputDialog(null, "Ingrese la marca del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE);
         String presentacion = JOptionPane.showInputDialog(null, " Ingrese la presentacion del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE);
         String [] tipos = {"Aseo", "Alimentos"};
@@ -84,7 +87,7 @@ public class Interaccion
         int precio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el precio del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
         int cantidad = Integer. parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantida del producto", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
         
-        Producto p = new Producto(nombre,precio, presentacion, cantidad, marca, tipos[tipo]);
+        Producto p = new Producto(nombre, precio, presentacion, cantidad, marca, tipos[tipo]);
         a.agregarProducto(p);
         JOptionPane.showMessageDialog(null, "Se ha añadido el producto al almacen", "Producto al almacen", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -95,7 +98,7 @@ public class Interaccion
         String lista = "";
         for(Producto p: listaProductos)
         {
-            lista = lista +p.toString() + "\n";
+            lista = lista + p.toString() + "\n";
         }
         JOptionPane.showMessageDialog(null, lista, "Productos en el almacén", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -103,7 +106,7 @@ public class Interaccion
     public void buscarProductos()
     {
         String criterio = JOptionPane.showInputDialog(null, "Ingrese dato de producto a buscar (nombre, marca, presentacion o tipo)", "Buscar Productos", JOptionPane.QUESTION_MESSAGE);
-        List<Producto> listaProductos = a.buscarProducto(criterio);
+        List<Producto> listaProductos = a.buscarProductos(criterio);
         String lista = "";
         for(Producto p: listaProductos)
         {
@@ -121,12 +124,24 @@ public class Interaccion
         Producto p = a.buscarProducto(codigo);
         int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el cantidad de "+p.getNombre()+ " " +p.getMarca() + "a surtir. Actual: "+p.getMarca(), "Surtir producto", JOptionPane.QUESTION_MESSAGE));
         int nuevoPrecio = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el nuevo precio  de " +p.getNombre()+ " " +p.getMarca() + "a surtir. Actual: " +p.getPrecio(), "Surtir producto", JOptionPane.QUESTION_MESSAGE));
-        a.aumentarCantProducto(codigo, cantidad);
-        a.modificarPrecio(codigo, nuevoPrecio);
+        a.surtirProducto(codigo, cantidad, nuevoPrecio);
         //a.actualizarArchivo();
         JOptionPane.showInputDialog(null, "Producto surtido exitosamente", "Producto surtido", JOptionPane.QUESTION_MESSAGE);
     }
     
+    
+    public void eliminarProducto()
+    {
+        this.buscarProductos();
+        int codigo = Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese el codigo del producto a eliminar", "Nuevo producto", JOptionPane.QUESTION_MESSAGE));
+        Producto p = a.buscarProducto(codigo);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Desea realmente el producto "+p.getNombre()+" "+p.getMarca()+"?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
+        if (opcion == JOptionPane.YES_OPTION)
+        {
+            a.eliminarProducto(codigo);
+            JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente", "Producto eliminado", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
     
     public void generarVenta()
     {
@@ -145,7 +160,7 @@ public class Interaccion
             }
             else
             {
-               JOptionPane.showInputDialog(null, "Prodcutor agregado al  carrito", "Producto NO agregado", JOptionPane.WARNING_MESSAGE); 
+               JOptionPane.showInputDialog(null, "No hay cantidad sificiente para este producto.", "Producto NO agregado", JOptionPane.WARNING_MESSAGE); 
             }
             opcion = JOptionPane.showConfirmDialog(null, "¿Desea continuar agregando productos?", "Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
         }
