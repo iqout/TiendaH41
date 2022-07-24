@@ -1,6 +1,5 @@
-public class Producto
+public class Producto 
 {
-   
     private String nombre;
     private int codigo;
     private int precio;
@@ -8,8 +7,8 @@ public class Producto
     private int cantidad;
     private String marca;
     private String tipo;
-    
-    public Producto()
+
+    public Producto() 
     {
         this.nombre = "";
         this.codigo = 0;
@@ -19,8 +18,8 @@ public class Producto
         this.marca = "";
         this.tipo = "";
     }
-    
-    public Producto(String nombre, int codigo, int precio, String presentacion, int cantidad, String marca, String tipo)
+
+    public Producto(String nombre, int codigo, int precio, String presentacion, int cantidad, String marca, String tipo) 
     {
         this.nombre = nombre;
         this.codigo = codigo;
@@ -31,7 +30,7 @@ public class Producto
         this.tipo = tipo;
     }
     
-     public Producto(String nombre, int precio, String presentacion, int cantidad, String marca, String tipo) 
+    public Producto(String nombre, int precio, String presentacion, int cantidad, String marca, String tipo) 
     {
         this.nombre = nombre;
         this.codigo = 0;
@@ -41,53 +40,60 @@ public class Producto
         this.marca = marca;
         this.tipo = tipo;
     }
-    
-    public void setPrecio(int precio)
+
+    public void setPrecio(int precio) 
     {
         this.precio = precio;
     }
-    
-    public void setCantidad(int cantidad)
+
+    public void setCantidad(int cantidad) 
     {
         this.cantidad = cantidad;
     }
-    
-    public String getNombre()
+
+    public String getNombre() 
     {
         return this.nombre;
     }
-    public int getCodigo()
+
+    public int getCodigo() 
     {
         return this.codigo;
     }
-    public int getPrecio()
+
+    public int getPrecio() 
     {
         return this.precio;
     }
-    public String getPresentacion()
+
+    public String getPresentacion() 
     {
         return this.presentacion;
     }
-    public int getCantidad()
+
+    public int getCantidad() 
     {
         return this.cantidad;
     }
-    public String getMarca()
+
+    public String getMarca() 
     {
         return this.marca;
     }
-    public String getTipo()
+
+    public String getTipo() 
     {
         return this.tipo;
     }
-    
+
     public String toString()
     {
-        return "Codigo: "+this.codigo+ " - " +this.nombre+ " - " + this.marca + " - "+ this.presentacion + " [ " + this.tipo + " ] " + "Cant : "+this.cantidad;
+        return "Cod. "+this.codigo+": -  "+this.nombre+" - "+this.marca +  " - "  + this.presentacion +  " - (" + this.tipo + ") - "  + " Cant: "+this.cantidad;
     }
-
+    
     public String toCSV()
     {
         return this.codigo+";"+this.nombre+";"+this.marca+";"+this.presentacion+";"+this.tipo+";"+this.precio+";"+this.cantidad;
     }
+    
 }

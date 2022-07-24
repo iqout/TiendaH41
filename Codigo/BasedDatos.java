@@ -28,7 +28,7 @@ public class BasedDatos
     
     public boolean cerrarConexion()
     {
-             try
+        try
         {
             conexion.close();
             return true;
